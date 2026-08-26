@@ -1,0 +1,20 @@
+# Add this block to your existing Caddyfile on the Hetzner box, alongside
+# the pennypost.vjbe.net block (which now also points at php8.5-fpm.sock).
+# Same shape, different app root, entirely separate SQLite database.
+
+todo.vjbe.net {
+    root * /var/www/todo.vjbe.net/public
+    php_fastcgi unix//run/php/php8.5-fpm.sock
+    file_server
+    encode gzip
+
+    @denied {
+        path /.env* /composer.* /artisan /storage/* /bootstrap/cache/*
+        not path /storage/app/public/*
+    }
+    respond @denied 404
+
+    log {
+        output file /var/log/caddy/todo.vjbe.net.log
+    }
+}

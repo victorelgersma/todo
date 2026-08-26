@@ -1,0 +1,169 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --paper: #ffffff;
+        --paper-card: #f7f7f5;
+        --sidebar: #fafafa;
+        --line: #e5e3df;
+        --ink-soft: #78766f;
+        --ink: #2b2a27;
+        --accent: #2b2a27;
+        --error-red: #c0392b;
+        --done: #a8a69f;
+    }
+    body {
+        background: var(--paper);
+        color: var(--ink);
+        font-family: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+        -webkit-font-smoothing: antialiased;
+    }
+}
+
+@layer components {
+    .td-sidebar {
+        background: var(--sidebar);
+        border-right: 1px solid var(--line);
+    }
+
+    .td-sidebar-link {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        padding: 7px 12px;
+        border-radius: 6px;
+        font-size: 14px;
+        color: var(--ink-soft);
+        text-decoration: none;
+    }
+
+    .td-sidebar-link:hover {
+        background: var(--line);
+    }
+
+    .td-sidebar-link.is-active {
+        background: var(--paper-card);
+        color: var(--ink);
+        font-weight: 600;
+        border: 1px solid var(--line);
+    }
+
+    .td-input-plain {
+        width: 100%;
+        background: transparent;
+        border: none;
+        padding: 4px 2px;
+        font-size: 14px;
+        color: var(--ink);
+    }
+
+    .td-input-plain:focus {
+        outline: none;
+    }
+
+    .td-input {
+        width: 100%;
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        padding: 8px 10px;
+        font-size: 14px;
+        color: var(--ink);
+    }
+
+    .td-input:focus {
+        outline: none;
+        border-color: var(--ink-soft);
+    }
+
+    .td-btn {
+        font-size: 13px;
+        padding: 7px 14px;
+        border-radius: 6px;
+        text-decoration: none;
+        border: 1px solid transparent;
+        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        cursor: pointer;
+    }
+
+    .td-btn-solid {
+        background: var(--accent);
+        color: var(--paper);
+        border-color: var(--accent);
+    }
+
+    .td-btn-solid:hover {
+        opacity: 0.85;
+    }
+
+    .td-btn-ghost {
+        color: var(--ink);
+        border-color: var(--line);
+        background: transparent;
+    }
+
+    .td-btn-ghost:hover {
+        border-color: var(--ink-soft);
+    }
+
+    .td-task-row {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 9px 4px;
+        border-bottom: 1px solid var(--line);
+    }
+
+    .td-checkbox {
+        appearance: none;
+        -webkit-appearance: none;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        border: 1.5px solid var(--ink-soft);
+        margin-top: 2px;
+        flex-shrink: 0;
+        cursor: pointer;
+        position: relative;
+    }
+
+    .td-checkbox:checked {
+        background: var(--done);
+        border-color: var(--done);
+    }
+
+    .td-checkbox:checked::after {
+        content: "";
+        position: absolute;
+        left: 5px;
+        top: 1px;
+        width: 5px;
+        height: 9px;
+        border: solid white;
+        border-width: 0 1.5px 1.5px 0;
+        transform: rotate(45deg);
+    }
+
+    .td-task-title {
+        font-size: 14px;
+        color: var(--ink);
+        line-height: 1.4;
+    }
+
+    .td-task-title.is-done {
+        color: var(--done);
+        text-decoration: line-through;
+    }
+
+    .td-error {
+        font-size: 13px;
+        color: var(--error-red);
+    }
+}
