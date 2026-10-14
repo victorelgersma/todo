@@ -11,7 +11,9 @@ class AppLayout extends Component
         public $lists = null,
         public $activeList = null,
     ) {
-        $this->lists ??= auth()->check() ? auth()->user()->todoLists()->orderBy('position')->get() : collect();
+        $this->lists ??= auth()->check()
+            ? auth()->user()->todoLists()->withCount('openTasks')->orderBy('position')->get()
+            : collect();
     }
 
     public function render(): View

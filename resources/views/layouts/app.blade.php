@@ -27,7 +27,7 @@
                 </svg>
             </button>
             <span class="font-semibold text-sm truncate px-2" style="color: var(--ink);">
-                {{ $activeList->name ?? config('app.name', 'To-Do') }}
+                {{ $activeList->name ?? (request()->routeIs('lists.overview') ? __('Overview') : config('app.name', 'To-Do')) }}
             </span>
             <span class="w-8"></span>
         </div>
@@ -62,13 +62,19 @@
             </div>
 
             <nav class="flex-1 space-y-1 overflow-y-auto">
+                <a href="{{ route('lists.overview') }}"
+                    @click="sidebarOpen = false"
+                    class="td-sidebar-link mb-3 {{ request()->routeIs('lists.overview') ? 'is-active' : '' }}">
+                    <span>{{ __('Overview') }}</span>
+                </a>
+
                 @foreach ($lists as $sidebarList)
                     <a href="{{ route('lists.show', $sidebarList) }}"
                         @click="sidebarOpen = false"
                         class="td-sidebar-link {{ ($activeList && $activeList->id === $sidebarList->id) ? 'is-active' : '' }}">
                         <span class="truncate">{{ $sidebarList->name }}</span>
                         <span class="text-xs" style="color: var(--ink-soft);">
-                            {{ $sidebarList->openTasks()->count() ?: '' }}
+                            {{ $sidebarList->open_tasks_count ?: '' }}
                         </span>
                     </a>
                 @endforeach

@@ -24,12 +24,32 @@ class TodoListController extends Controller
         return view('lists.empty');
     }
 
+    /**
+     * Every list at a glance, most recently active first. "Active" means the
+     * newest task added; lists without tasks fall back to their own creation
+     * date so a freshly created list still surfaces near the top.
+     */
+    public function overview(Request $request): View
+    {
+        $lists = $request->user()->todoLists()
+            ->withCount(['openTasks', 'completedTasks'])
+            ->withMax('tasks as last_task_added_at', 'created_at')
+            ->withCasts(['last_task_added_at' => 'datetime'])
+            ->with(['openTasks' => fn ($query) => $query->limit(3)])
+            ->get()
+            ->sortByDesc(fn (TodoList $list) => ($list->last_task_added_at ?? $list->created_at)->getTimestamp())
+            ->values();
+
+        return view('lists.overview', [
+            'projects' => $lists,
+        ]);
+    }
+
     public function show(Request $request, TodoList $list): View
     {
         $this->authorizeList($request, $list);
 
         return view('lists.show', [
-            'lists' => $request->user()->todoLists()->orderBy('position')->get(),
             'list' => $list,
             'openTasks' => $list->openTasks()->get(),
             'completedTasks' => $list->completedTasks()->latest('completed_at')->get(),

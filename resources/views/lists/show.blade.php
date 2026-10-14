@@ -1,4 +1,4 @@
-<x-app-layout :lists="$lists" :active-list="$list">
+<x-app-layout :active-list="$list">
     <div class="max-w-2xl mx-auto px-6 sm:px-10 py-10">
         <div class="flex items-center justify-between gap-4 mb-6" x-data="{ renaming: false }">
             <form method="POST" action="{{ route('lists.update', $list) }}" class="flex-1 min-w-0" x-show="renaming" x-cloak>

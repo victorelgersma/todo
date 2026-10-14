@@ -162,6 +162,20 @@
         text-decoration: line-through;
     }
 
+    .td-project-card {
+        display: block;
+        padding: 16px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--paper-card);
+        text-decoration: none;
+        min-width: 0;
+    }
+
+    .td-project-card:hover {
+        border-color: var(--ink-soft);
+    }
+
     .td-error {
         font-size: 13px;
         color: var(--error-red);
